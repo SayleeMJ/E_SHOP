@@ -77,24 +77,6 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-<<<<<<< HEAD
-<!--		<dependency>-->
-<!--			<groupId>com.paytm</groupId>-->
-<!--			<artifactId>miniapp-sdk-client</artifactId>-->
-<!--			<version>1.0.2-SNAPSHOT</version>-->
-<!--		</dependency>-->
-=======
-<!-- 		<dependency>
-			<groupId>com.paytm</groupId>
-			<artifactId>miniapp-sdk-client</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
-		</dependency> -->
->>>>>>> 5b2ce8f12812a9d3bfcb816476e5b2f24e47b456
-<!--		<dependency>-->
-<!--			<groupId>com.paytm</groupId>-->
-<!--			<artifactId>paytm-checksum</artifactId>-->
-<!--			<version>1.2.0</version>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>
