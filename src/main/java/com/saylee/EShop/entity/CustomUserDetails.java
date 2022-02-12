@@ -52,8 +52,4 @@ public class CustomUserDetails extends User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public String getByName(){
-        return super.getName();
-    }
 }

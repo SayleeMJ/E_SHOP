@@ -33,21 +33,24 @@ public class CartController {
 
     @Autowired
     UserService userService;
-//
-//    @GetMapping("/cart")
-//    public String showShoppingCart(Model model, Principal principal, @PathVariable Integer id){
-//        Optional<User> user = userService.getUserById(id);
-//        if (user.isPresent()){
-//            System.out.println("User is: " + user);
-//            List<CartItem> cart = cartItemService.listCartItems(id);
-//            model.addAttribute("cart", cart);
+
+    @Autowired
+    UserRepository userRepository;
+
+    @GetMapping("/cart")
+    public String showShoppingCart(Model model, Principal principal){
+        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        if (user.isPresent()){
+            System.out.println("User is: " + user);
+            List<CartItem> cart = cartItemService.listCartItems(user.get().getId());
+            model.addAttribute("cart", cart);
 //            model.addAttribute("pageTitle", "Shopping Cart");
-//            return "cart";
-//        }else {
-//            return "shop";
-//        }
-//
-//    }
+            return "cart";
+        }else {
+            return "shop";
+        }
+
+    }
 
 
     @GetMapping("/addToCart/{id}")
@@ -55,14 +58,14 @@ public class CartController {
         GlobalData.cart.add(productService.getProductById(id).get());
         return "redirect:/shop";
     }
-
-    @GetMapping("/cart")
-    public String getCart(Model model){
-        model.addAttribute("cartCount", GlobalData.cart.size());
-        model.addAttribute("total", GlobalData.cart.stream().mapToDouble(Product::getPrice).sum());
-        model.addAttribute("cart", GlobalData.cart);
-        return "cart";
-    }
+//
+//    @GetMapping("/cart")
+//    public String getCart(Model model){
+//        model.addAttribute("cartCount", GlobalData.cart.size());
+//        model.addAttribute("total", GlobalData.cart.stream().mapToDouble(Product::getPrice).sum());
+//        model.addAttribute("cart", GlobalData.cart);
+//        return "cart";
+//    }
 
     @GetMapping("/cart/removeItem/{index}")
     public String getCartRemove(@PathVariable int index){

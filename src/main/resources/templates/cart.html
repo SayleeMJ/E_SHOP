@@ -66,13 +66,13 @@
                     <div class="card wish-list mb-4">
                         <div class="card-body">
 
-                            <h5 class="mb-4">Cart (<span th:text="${cartCount}">2</span> items)</h5>
+<!--                            <h5 class="mb-4">Cart (<span th:text="${cartCount}">2</span> items)</h5>-->
 
                             <div class="row mb-4" th:each="item, iStat : ${cart}">
                                 <div class="col-md-5 col-lg-3 col-xl-3">
                                     <div class="mb-3 mb-md-0">
                                         <img class="img-fluid w-100"
-                                             th:src="@{${'/productImages/' + item.imageName}}"
+                                             th:src="@{${'/productImages/' + item.product.imageName}}"
                                              src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg" alt="Sample">
 
                                     </div>
@@ -81,10 +81,10 @@
                                     <div>
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <h5 th:text="${item.name}">Blue denim shirt</h5>
+                                                <h5 th:text="${item.product.name}">Blue denim shirt</h5>
 <!--                                                <p class="mb-2 text-uppercase small">Category: <span th:text="${item.category.name}"></span></p>-->
-                                                <p class="mb-3 text-uppercase small">Size: <span th:text="${item.size}"></span></p>
-                                                <p class="mb-3 text-uppercase small">Color: <span th:text="${item.color}"></span></p>
+                                                <p class="mb-3 text-uppercase small">Size: <span th:text="${item.product.size}"></span></p>
+                                                <p class="mb-3 text-uppercase small">Color: <span th:text="${item.product.color}"></span></p>
                                             </div>
 
                                         </div>
@@ -94,7 +94,7 @@
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
 
                                             </div>
-                                            <p class="mb-0"><span><strong>₹<span th:text="${item.price}"></span></strong></span></p>
+                                            <p class="mb-0"><span><strong>₹<span th:text="${item.product.price}"></span></strong></span></p>
                                         </div>
                                     </div>
                                 </div>

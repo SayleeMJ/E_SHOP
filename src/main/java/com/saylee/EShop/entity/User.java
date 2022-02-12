@@ -37,6 +37,7 @@ public class User {
     }
 
     public User(User user) {
+        this.id = user.getId();
         this.name = user.getName();
         this.username = user.getUsername();
         this.email = user.getEmail();

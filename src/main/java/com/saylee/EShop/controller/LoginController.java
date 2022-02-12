@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -30,10 +32,20 @@ public class LoginController {
     RoleRepository roleRepository;
 
     @GetMapping("/login")
-    public String login() {
+    public String loginForm() {
         GlobalData.cart.clear();
         return "login";
     }
+    @GetMapping("/success")
+    public String login(Principal principal){
+       Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        if(user.get().getEmail().contains("admin")){
+            return "redirect:/admin";
+        }else{
+            return "redirect:/";
+        }
+    }
+
 
     @GetMapping("/register")
     public String getRegister() {
