@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String postRegister(@ModelAttribute("user") User user, HttpServletRequest request) throws ServletException {
+    public String postRegister(@Valid @ModelAttribute("user") User user, HttpServletRequest request) throws ServletException {
         String password = user.getPassword();
         user.setPassword(bCryptPasswordEncoder.encode(password));
         List<Role> roles = new ArrayList<>();
@@ -75,6 +76,11 @@ public class LoginController {
     public String updateUser(){
 
         return "updateProfile";
+    }
+
+    @GetMapping("/error")
+    public String errorInLogin(){
+        return "errorPage";
     }
 
 }

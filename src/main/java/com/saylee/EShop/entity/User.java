@@ -1,10 +1,13 @@
 package com.saylee.EShop.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -14,17 +17,26 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
+    @NotBlank
     private String username;
     @Column(nullable = false, unique = true)
+
     @NotEmpty
+    @NotBlank
     @Email(message = "{errors.invalid_email}")
     private String email;
+
+    @NumberFormat(pattern ="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$")
     private String contact;
+
     private String address;
 
+    @Size(message = "Password cannot be less than 6 letters")
     private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

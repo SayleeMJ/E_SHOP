@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/shop/**","forgotPassword","/register","/h2-console/**","/userProfile/**")
                 .permitAll()
-                .antMatchers("/contact/**","/blog/**")
+                .antMatchers("/contact/**","/blog/**","/viewProduct/**")
                 .permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
                 .defaultSuccessUrl("/success")
-                .failureForwardUrl("/login?error = true")
+                .failureForwardUrl("/error")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
@@ -72,6 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) throws Exception{
         webSecurity.ignoring().antMatchers("/resources/**", "/static/**","/images/**",
-                "/productImages/**","/css/**","/js/**","/vendor/**","/fonts/**","/icons/**");
+                "/productImages/**","/css/**","/js/**","/vendor/**","/fonts/**","/icons/**","/json/**");
     }
 }

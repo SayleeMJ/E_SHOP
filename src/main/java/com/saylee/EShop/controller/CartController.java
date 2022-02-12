@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
@@ -41,31 +42,30 @@ public class CartController {
     public String showShoppingCart(Model model, Principal principal){
         Optional<User> user = userRepository.findUserByEmail(principal.getName());
         if (user.isPresent()){
-            System.out.println("User is: " + user);
             List<CartItem> cart = cartItemService.listCartItems(user.get().getId());
             model.addAttribute("cart", cart);
-//            model.addAttribute("pageTitle", "Shopping Cart");
             return "cart";
         }else {
             return "shop";
         }
-
     }
 
 
     @GetMapping("/addToCart/{id}")
-    public  String addToCart(@PathVariable Long id){
-        GlobalData.cart.add(productService.getProductById(id).get());
+    public  String addToCart(Principal principal ,@PathVariable Long id, HttpServletRequest request){
+        Integer quantity = 1;
+        Optional<Product> product =  productService.getProductById(id);
+        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        if (user.isPresent()){
+            Integer useId = user.get().getId();
+        }
+        CartItem cartItem = new CartItem();
+        cartItem.setQuantity(quantity);
+//        cartItem.setProduct(product);
+//        cartItem.setUser(userId);
+//        cartItemService.addItemsToCart();
         return "redirect:/shop";
     }
-//
-//    @GetMapping("/cart")
-//    public String getCart(Model model){
-//        model.addAttribute("cartCount", GlobalData.cart.size());
-//        model.addAttribute("total", GlobalData.cart.stream().mapToDouble(Product::getPrice).sum());
-//        model.addAttribute("cart", GlobalData.cart);
-//        return "cart";
-//    }
 
     @GetMapping("/cart/removeItem/{index}")
     public String getCartRemove(@PathVariable int index){

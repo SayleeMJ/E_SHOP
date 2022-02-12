@@ -40,10 +40,10 @@
                     <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
+                    <a class="nav-link" th:href="@{/cart}">cart</a>
                 </li>
                 <li class="nav-item active">
-                    <span class="nav-link" th:text="${cartCount}">0</span>
+                    <span class="nav-link">0</span>
                 </li>
             </ul>
 

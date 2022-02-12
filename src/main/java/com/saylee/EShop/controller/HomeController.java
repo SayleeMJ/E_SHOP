@@ -21,20 +21,13 @@ public class HomeController {
     @GetMapping({"/","/home"})
     public String home(Model model){
         model.addAttribute("products", productService.getAllProduct());
-        model.addAttribute("cartCount", GlobalData.cart.size());
         return "index";
     }
-//    @GetMapping({"/shop/{id}","/home"})
-//    public String homeProducts(@PathVariable Long id, Model model){
-//        model.addAttribute("Product", productService.getProductById(id).get());
-//        return "index";
-//    }
 
     @GetMapping("/shop")
     public String shop(Model model){
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("products", productService.getAllProduct());
-        model.addAttribute("cartCount", GlobalData.cart.size());
         return "shop";
     }
     @GetMapping("/shop/category/{id}")
@@ -45,7 +38,7 @@ public class HomeController {
         return "shop";
     }
 
-    @GetMapping("/shop/viewProduct/{id}")
+    @GetMapping("/viewProduct/{id}")
     public String viewProduct(@PathVariable Long id, Model model){
         model.addAttribute("product", productService.getProductById(id).get());
         model.addAttribute("cartCount", GlobalData.cart.size());
