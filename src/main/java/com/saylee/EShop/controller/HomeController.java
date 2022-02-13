@@ -1,6 +1,5 @@
 package com.saylee.EShop.controller;
 
-import com.saylee.EShop.global.GlobalData;
 import com.saylee.EShop.service.CategoryService;
 import com.saylee.EShop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,12 @@ public class HomeController {
     public String shopByCategory(@PathVariable Integer id, Model model){
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("products", productService.getAllProductsByCategoryId(id));
-        model.addAttribute("cartCount", GlobalData.cart.size());
         return "shop";
     }
 
     @GetMapping("/viewProduct/{id}")
     public String viewProduct(@PathVariable Long id, Model model){
         model.addAttribute("product", productService.getProductById(id).get());
-        model.addAttribute("cartCount", GlobalData.cart.size());
         return "viewProduct";
     }
 

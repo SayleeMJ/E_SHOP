@@ -2,7 +2,7 @@ package com.saylee.EShop.controller;
 
 import com.saylee.EShop.entity.Role;
 import com.saylee.EShop.entity.User;
-import com.saylee.EShop.global.GlobalData;
+
 import com.saylee.EShop.repository.RoleRepository;
 import com.saylee.EShop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm() {
-        GlobalData.cart.clear();
         return "login";
     }
     @GetMapping("/success")

@@ -2,6 +2,7 @@ package com.saylee.EShop.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -9,7 +10,7 @@ import javax.persistence.*;
 public class CartItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
 
@@ -37,13 +38,5 @@ public class CartItem {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 }

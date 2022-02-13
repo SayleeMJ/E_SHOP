@@ -1,11 +1,12 @@
 package com.saylee.EShop.controller;
 
 import com.saylee.EShop.entity.CartItem;
+import com.saylee.EShop.entity.MyOrder;
 import com.saylee.EShop.entity.Product;
 import com.saylee.EShop.entity.User;
-import com.saylee.EShop.global.GlobalData;
 import com.saylee.EShop.repository.UserRepository;
 import com.saylee.EShop.service.CartItemService;
+import com.saylee.EShop.service.OrderService;
 import com.saylee.EShop.service.ProductService;
 import com.saylee.EShop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +35,7 @@ public class CartController {
     CartItemService cartItemService;
 
     @Autowired
-    UserService userService;
+    OrderService orderService;
 
     @Autowired
     UserRepository userRepository;
@@ -51,33 +53,61 @@ public class CartController {
     }
 
 
-    @GetMapping("/addToCart/{id}")
-    public  String addToCart(Principal principal ,@PathVariable Long id, HttpServletRequest request){
-        Integer quantity = 1;
-        Optional<Product> product =  productService.getProductById(id);
+    @RequestMapping("/addToCart/{id}")
+    public  String addToCart(Principal principal ,@PathVariable Long id, HttpServletRequest request, Model model){;
         Optional<User> user = userRepository.findUserByEmail(principal.getName());
-        if (user.isPresent()){
-            Integer useId = user.get().getId();
+        if(user.isPresent()){
+            Integer quantity = Integer.parseInt(request.getParameter("quantity"));
+            Product product =  productService.getProductById(id).get();
+            CartItem cartItem = new CartItem();
+            cartItem.setProduct(product);
+            cartItem.setUser(user.get());
+            cartItem.setQuantity(quantity);
+            cartItemService.addItemsToCart(cartItem);
+            model.addAttribute("message", "Item Added successfully");
+            return "redirect:/shop";
+        }else{
+            return "redirect:/shop";
         }
-        CartItem cartItem = new CartItem();
-        cartItem.setQuantity(quantity);
-//        cartItem.setProduct(product);
-//        cartItem.setUser(userId);
-//        cartItemService.addItemsToCart();
-        return "redirect:/shop";
     }
+//    @RequestMapping("/orderPlaced")
+//    public String checkoutProduct(Model model, Principal principal, HttpServletRequest request){
+//        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+//        if(user.isPresent()){
+//            List<CartItem> cartItem = cartItemService.listCartItems(user.get().getId());
+//            MyOrder myOrder = new MyOrder();
+//            myOrder.setQuantity(cartItem.);
+//            myOrder.setDate(new Date());
+//            myOrder.setProduct(cartItem.getProduct());
+//            orderService.addOrderDetails(cartItem.a);
+//            return "redirect:/shop";
+//        }
+//        return "redirect:/shop";
+//    }
 
     @GetMapping("/cart/removeItem/{index}")
     public String getCartRemove(@PathVariable int index){
-        GlobalData.cart.remove(index);
         return "redirect:/cart";
     }
 
-    @GetMapping("/checkout")
-    public String checkoutProduct(Model model){
-        model.addAttribute("total", GlobalData.cart.stream().mapToDouble(Product::getPrice).sum());
-        return "checkout";
+    @RequestMapping("/updateCart/{id}")
+    public  String updateCart(Principal principal ,@PathVariable Long id, HttpServletRequest request, Model model){;
+        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        if(user.isPresent()){
+            Integer quantity = Integer.parseInt(request.getParameter("quantity"));
+            Product product =  productService.getProductById(id).get();
+            CartItem cartItem = new CartItem();
+            cartItem.setProduct(product);
+            cartItem.setUser(user.get());
+            cartItem.setQuantity(quantity);
+            cartItemService.addItemsToCart(cartItem);
+            model.addAttribute("cart", cartItem);
+            return "redirect:/cart";
+        }else{
+            return "redirect:/shop";
+        }
     }
+
     @RequestMapping("/checkoutSuccessful")
     public String checkoutProductSuccessful(){
         return "payNow";
