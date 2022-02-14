@@ -80,12 +80,13 @@ public class CartController {
                 myOrder.setProduct(cartItem.get(i).product);
                 myOrder.setUser(user.get());
                 myOrder.setDate(new Date());
+                myOrder.setTime(new Date());
                 myOrder.setQuantity(cartItem.get(i).getQuantity());
                 orderService.addOrderDetails(myOrder);
             }
-//            for(int i=0; i<cartItem.size();i++){
-//                cartItemService.removeById(user.get().);
-//            }
+            for(int i=0; i<cartItem.size();i++){
+                cartItemService.removeById(cartItem.get(i).getId());
+            }
             return "redirect:/shop";
         }
         System.out.println("Invalid User");
