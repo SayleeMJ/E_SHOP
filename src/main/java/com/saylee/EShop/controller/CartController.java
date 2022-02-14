@@ -41,7 +41,7 @@ public class CartController {
             List<CartItem> cart = cartItemService.listCartItems(user.get().getId());
             Double sum = 0.0;
             for (int i =0 ;i<cart.size();i++){
-                sum = sum + cart.get(i).getProduct().getPrice();
+                sum = sum + (cart.get(i).getProduct().getPrice() * cart.get(i).getQuantity());
             }
             model.addAttribute("total", sum);
             model.addAttribute("cart", cart);
@@ -110,17 +110,15 @@ public class CartController {
         Optional<User> user = userRepository.findUserByEmail(principal.getName());
         List<CartItem> cartItem = cartItemService.listCartItems(user.get().getId());
         if(user.isPresent()){
-            for (int i = 0; i<cartItem.size(); i++){
-                Long productsId = cartItem.get(i).product.getId();
-                Integer addedQuantity = 0;
-                if(productsId != null){
-                    if(cartItem.get(i).getQuantity()<1){
-                        cartItem.remove(i);
-                    }
-                    else {
-                        addedQuantity += cartItem.get(i).getQuantity();
-                        cartItem.get(i).setQuantity(addedQuantity);
-                    }
+            for(int i=0; i<cartItem.size();i++){
+                CartItem cartItem1 = cartItem.get(i);
+                Integer quantity = Integer.parseInt(request.getParameter(cartItem.get(i).getId().toString()));
+                if(quantity <= 0){
+                    cartItemService.removeById(cartItem.get(i).getId());
+                }
+                else{
+                    cartItem1.setQuantity(quantity);
+                    cartItemService.addItemsToCart(cartItem1);
                 }
             }
             return "redirect:/cart";
