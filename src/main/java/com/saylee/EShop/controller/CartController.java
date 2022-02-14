@@ -8,19 +8,13 @@ import com.saylee.EShop.repository.UserRepository;
 import com.saylee.EShop.service.CartItemService;
 import com.saylee.EShop.service.OrderService;
 import com.saylee.EShop.service.ProductService;
-import com.saylee.EShop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +39,11 @@ public class CartController {
         Optional<User> user = userRepository.findUserByEmail(principal.getName());
         if (user.isPresent()){
             List<CartItem> cart = cartItemService.listCartItems(user.get().getId());
+            Double sum = 0.0;
+            for (int i =0 ;i<cart.size();i++){
+                sum = sum + cart.get(i).getProduct().getPrice();
+            }
+            model.addAttribute("total", sum);
             model.addAttribute("cart", cart);
             return "cart";
         }else {
@@ -59,6 +58,7 @@ public class CartController {
         if(user.isPresent()){
             Integer quantity = Integer.parseInt(request.getParameter("quantity"));
             Product product =  productService.getProductById(id).get();
+            Integer addedQuantity = quantity;
             CartItem cartItem = new CartItem();
             cartItem.setProduct(product);
             cartItem.setUser(user.get());
@@ -94,31 +94,46 @@ public class CartController {
         return "redirect:/shop";
     }
 
-    @GetMapping("/cart/removeItem/{index}")
+    @GetMapping("/removeItem/{id}")
     public String getCartRemove(@PathVariable int index){
         return "redirect:/cart";
     }
 
-    @RequestMapping("/updateCart/{id}")
-    public  String updateCart(Principal principal ,@PathVariable Long id, HttpServletRequest request, Model model){;
+    @RequestMapping("/updateCart")
+    public  String updateCart(Principal principal, HttpServletRequest request, Model model){;
         Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        List<CartItem> cartItem = cartItemService.listCartItems(user.get().getId());
         if(user.isPresent()){
-            Integer quantity = Integer.parseInt(request.getParameter("quantity"));
-            Product product =  productService.getProductById(id).get();
-            CartItem cartItem = new CartItem();
-            cartItem.setProduct(product);
-            cartItem.setUser(user.get());
-            cartItem.setQuantity(quantity);
-            cartItemService.addItemsToCart(cartItem);
-            model.addAttribute("cart", cartItem);
+            for (int i = 0; i<cartItem.size(); i++){
+                Long productsId = cartItem.get(i).product.getId();
+                Integer addedQuantity = 0;
+                if(productsId != null){
+                    if(cartItem.get(i).getQuantity()<1){
+                        cartItem.remove(i);
+                    }
+                    else {
+                        addedQuantity += cartItem.get(i).getQuantity();
+                        cartItem.get(i).setQuantity(addedQuantity);
+                    }
+                }
+            }
             return "redirect:/cart";
         }else{
             return "redirect:/shop";
         }
     }
 
-    @RequestMapping("/checkoutSuccessful")
-    public String checkoutProductSuccessful(){
-        return "payNow";
+    @RequestMapping("/orderHistory")
+    public String showOrderHistory(Principal principal, Model model){
+        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        if (user.isPresent()){
+            List<MyOrder> myOrders = orderService.listOrderHistory(user.get().getId());
+            model.addAttribute("order", myOrders);
+            return "myOrder";
+
+        }else {
+            return "redirect:/shop";
+        }
+
     }
 }

@@ -1,5 +1,9 @@
 package com.saylee.EShop.controller;
 
+import com.saylee.EShop.entity.CartItem;
+import com.saylee.EShop.entity.User;
+import com.saylee.EShop.repository.UserRepository;
+import com.saylee.EShop.service.CartItemService;
 import com.saylee.EShop.service.CategoryService;
 import com.saylee.EShop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 public class HomeController {
 
@@ -16,8 +24,12 @@ public class HomeController {
     CategoryService categoryService;
     @Autowired
     ProductService productService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    CartItemService cartItemService;
 
-    @GetMapping({"/","/home"})
+    @GetMapping("/")
     public String home(Model model){
         model.addAttribute("products", productService.getAllProduct());
         return "index";
