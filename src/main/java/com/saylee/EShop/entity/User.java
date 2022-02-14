@@ -22,9 +22,6 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-
-    private String username;
-
     @Column(nullable = false, unique = true)
     @NotEmpty
     @Email(message = "{errors.invalid_email}")
@@ -49,7 +46,6 @@ public class User {
     public User(User user) {
         this.id = user.getId();
         this.name = user.getName();
-        this.username = user.getUsername();
         this.email = user.getEmail();
         this.contact = user.getContact();
         this.address = user.getAddress();

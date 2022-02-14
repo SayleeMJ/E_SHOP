@@ -4456,3 +4456,6 @@ select cartitem0_.id as id1_0_, cartitem0_.product_id as product_4_0_, cartitem0
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
+2022-02-15 00:31:20 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM TABLE[*] USER_ROLE WHERE USER_ID = 33"; expected "identifier"; SQL statement:
+DELETE FROM TABLE USER_ROLE WHERE USER_ID = 33 [42001-200]

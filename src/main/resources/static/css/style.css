@@ -305,7 +305,7 @@ form .txt_field1{
 .txt_field1 span::before{
   content: '';
   position: absolute;
-  top: 25px;
+  top: 22px;
   left: 0;
   width: 0%;
   height: 2px;
@@ -346,48 +346,23 @@ td {
   text-decoration: underline;
 }
 
-/*Account details*/
-form .txt_field2{
-  position: relative;
-  border-bottom: 2px solid #adadad;
-  margin: 30px 0;
-}
-.txt_field2 input{
-  width: 100%;
-  padding: 0 5px;
-  height: 20px;
-  font-size: 13px;
-  border: none;
-  background: none;
-  outline: none;
-  color: #adadad;
-}
-.txt_field2 label{
+.centerrr{
   position: absolute;
-  top: 50%;
-  left: 5px;
-  color: #adadad;
-  transform: translateY(-50%);
-  font-size: 15px;
-  pointer-events: none;
-  transition: .5s;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: rgb(53 166 220 / 14%);
+  border-radius: 10px;
+  box-shadow: inset 19px -14px 18px 9px rgb(0 0 0 / 5%);
 }
-.txt_field2 span::before{
-  content: '';
-  position: absolute;
-  top: 25px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #2691d9;
-  transition: .5s;
+.centerrr h1{
+  text-align: center;
+  padding: 10px 0;
+  font-size: 35px;
+  border-bottom: 1px solid silver;
 }
-.txt_field2 input:focus ~ label,
-.txt_field2 input:valid ~ label{
-  top: -5px;
-  color: #2691d9;
-}
-.txt_field2 input:focus ~ span::before,
-.txt_field2 input:valid ~ span::before{
-  width: 100%;
+.centerrr form{
+  padding: 0 40px;
+  box-sizing: border-box;
 }

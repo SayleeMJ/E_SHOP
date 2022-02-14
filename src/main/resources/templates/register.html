@@ -95,18 +95,13 @@
 </header>
 
 <section class="banner-area">
-    <div class="centerr">
+    <div class="centerrr">
         <h1>Register</h1>
-        <form method="post" action="/login">
+        <form method="post" th:action="@{/register}" th:object="${user}"}>
             <div class="txt_field1">
                 <input type="text" name="name" id="name" required/>
                 <span></span>
                 <label>Name</label>
-            </div>
-            <div class="txt_field1">
-                <input type="text" name="username" id="username" required/>
-                <span></span>
-                <label>Username</label>
             </div>
             <div class="txt_field1">
                 <input type="email" name="email" id="email" required/>
@@ -114,12 +109,12 @@
                 <label>Email</label>
             </div>
             <div class="txt_field1">
-                <input type="text" name="address" id="address" required/>
+                <input type="text" name="address" id="address" minlength="10" maxlength="50" required/>
                 <span></span>
                 <label>Address</label>
             </div>
             <div class="txt_field1">
-                <input type="text" name="contact" id="contact" required/>
+                <input type="text" name="contact" id="contact" pattern="^\d{10}$" required/>
                 <span></span>
                 <label>Contact</label>
             </div>
@@ -130,7 +125,7 @@
             </div>
             <input type="submit" value="Register">
             <div class="signup_link">
-                Already a member? <a href="login">Login</a>
+                Already a member? <a th:href="@{login}">Login</a>
             </div>
         </form>
     </div>

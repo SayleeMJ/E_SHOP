@@ -65,18 +65,4 @@ public class LoginController {
         return "redirect:/";
     }
 
-
-    @RequestMapping("/userProfile")
-    public String showUserProfile() {
-        return "userProfile";
-    }
-
-    @GetMapping("/updateProfile")
-    public String updateUser(){
-
-        return "updateProfile";
-    }
-
-
-
 }
