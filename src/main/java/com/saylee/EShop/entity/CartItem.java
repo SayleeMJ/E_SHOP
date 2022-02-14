@@ -8,7 +8,6 @@ import java.util.Date;
 @Data
 @Table(name = "cart_items")
 public class CartItem {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -16,7 +15,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    public Product product;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

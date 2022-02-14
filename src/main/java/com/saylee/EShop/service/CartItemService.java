@@ -25,5 +25,7 @@ public class CartItemService {
     public CartItem addItemsToCart(CartItem cartItem){
         return  cartItemRepository.save(cartItem);
     }
-
+    public void  removeById(Integer id){
+        cartItemRepository.deleteById(id);
+    }
 }

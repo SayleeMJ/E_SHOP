@@ -70,20 +70,28 @@ public class CartController {
             return "redirect:/shop";
         }
     }
-//    @RequestMapping("/orderPlaced")
-//    public String checkoutProduct(Model model, Principal principal, HttpServletRequest request){
-//        Optional<User> user = userRepository.findUserByEmail(principal.getName());
-//        if(user.isPresent()){
-//            List<CartItem> cartItem = cartItemService.listCartItems(user.get().getId());
-//            MyOrder myOrder = new MyOrder();
-//            myOrder.setQuantity(cartItem.);
-//            myOrder.setDate(new Date());
-//            myOrder.setProduct(cartItem.getProduct());
-//            orderService.addOrderDetails(cartItem.a);
-//            return "redirect:/shop";
-//        }
-//        return "redirect:/shop";
-//    }
+    @RequestMapping("/orderPlaced")
+    public String checkoutProduct(Model model, Principal principal, HttpServletRequest request){
+        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        if(user.isPresent()){
+            List<CartItem> cartItem = cartItemService.listCartItems(user.get().getId());
+            for(int i = 0; i< cartItem.size();i++){
+                MyOrder myOrder = new MyOrder();
+                myOrder.setProduct(cartItem.get(i).product);
+                myOrder.setUser(user.get());
+                myOrder.setDate(new Date());
+                myOrder.setQuantity(cartItem.get(i).getQuantity());
+                orderService.addOrderDetails(myOrder);
+            }
+//            for(int i=0; i<cartItem.size();i++){
+//                cartItemService.removeById(user.get().);
+//            }
+            return "redirect:/shop";
+        }
+        System.out.println("Invalid User");
+
+        return "redirect:/shop";
+    }
 
     @GetMapping("/cart/removeItem/{index}")
     public String getCartRemove(@PathVariable int index){
