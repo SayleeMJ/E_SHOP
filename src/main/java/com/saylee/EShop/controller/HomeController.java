@@ -53,14 +53,4 @@ public class HomeController {
         model.addAttribute("product", productService.getProductById(id).get());
         return "viewProduct";
     }
-
-    @RequestMapping("/contact")
-    public String showContact(){
-        return "contact";
-    }
-
-    @RequestMapping("/blog")
-    public String showBlog(){
-        return "blog";
-    }
 }

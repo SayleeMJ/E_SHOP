@@ -114,7 +114,7 @@
 <div class="container">
     <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
         <span class="stext-109 cl4">
-				Shoping Cart
+				Shopping Cart
 			</span>
     </div>
 </div>
@@ -164,17 +164,15 @@
                     </div>
 <!--                    -->
                     <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                        <form th:action="@{/removeItem}" method="post">
                         <div class="flex-w flex-m m-r-20 m-tb-5">
-                           <button type="submit" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                           <a th:href="@{/deleteCart}" type="submit" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
                                 Delete Cart
-                            </button>
-                        </div></form>
+                            </a>
+                        </div>
 
-                        <form th:action="@{/updateCart}" method="post">
                         <button  type="submit" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
                             Update Cart
-                        </button></form>
+                        </button>
                     </div>
 
                 </div>

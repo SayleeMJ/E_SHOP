@@ -22,16 +22,14 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @NotBlank
-    private String username;
-    @Column(nullable = false, unique = true)
 
+    private String username;
+
+    @Column(nullable = false, unique = true)
     @NotEmpty
-    @NotBlank
     @Email(message = "{errors.invalid_email}")
     private String email;
 
-    @NumberFormat(pattern ="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$")
     private String contact;
 
     private String address;

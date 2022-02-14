@@ -2,7 +2,6 @@ package com.saylee.EShop.entity;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data

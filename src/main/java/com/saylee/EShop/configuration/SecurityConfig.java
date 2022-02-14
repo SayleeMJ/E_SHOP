@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/contact/**","/blog/**","/viewProduct/**")
                 .permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**","/admin/categories/**", "/categoriesAdd/**" +
+                        "/products/**", "/productsAdd/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -37,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
                 .defaultSuccessUrl("/success")
-                .failureForwardUrl("/error")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and()

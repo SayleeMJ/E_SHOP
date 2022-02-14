@@ -77,9 +77,6 @@ public class LoginController {
         return "updateProfile";
     }
 
-    @GetMapping("/error")
-    public String errorInLogin(){
-        return "errorPage";
-    }
+
 
 }

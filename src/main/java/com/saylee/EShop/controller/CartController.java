@@ -83,8 +83,6 @@ public class CartController {
                 myOrder.setTime(new Date());
                 myOrder.setQuantity(cartItem.get(i).getQuantity());
                 orderService.addOrderDetails(myOrder);
-            }
-            for(int i=0; i<cartItem.size();i++){
                 cartItemService.removeById(cartItem.get(i).getId());
             }
             return "redirect:/shop";
@@ -94,8 +92,16 @@ public class CartController {
         return "redirect:/shop";
     }
 
-    @GetMapping("/removeItem/{id}")
-    public String getCartRemove(@PathVariable int index){
+    @GetMapping("/deleteCart")
+    public String getCartRemove(Principal principal, Model model){
+        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        if(user.isPresent()){
+            List<CartItem> cartItem = cartItemService.listCartItems(user.get().getId());
+            for(int i=0; i<cartItem.size();i++){
+                cartItemService.removeById(cartItem.get(i).getId());
+            }
+            model.addAttribute("message","Products removed successfully!");
+        }
         return "redirect:/cart";
     }
 
