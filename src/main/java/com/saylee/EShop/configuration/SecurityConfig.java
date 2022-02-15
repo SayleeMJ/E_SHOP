@@ -17,8 +17,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    GoogleOAuth2SuccessHandler googleOAuth2SuccessHandler;
-    @Autowired
     CustomUserDetailService customUserDetailService;
 
     @Override
@@ -40,10 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/success")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .and()
-                .oauth2Login()
-                .loginPage("/login")
-                .successHandler(googleOAuth2SuccessHandler)
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
