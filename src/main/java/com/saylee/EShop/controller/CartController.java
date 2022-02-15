@@ -134,10 +134,8 @@ public class CartController {
             List<MyOrder> myOrders = orderService.listOrderHistory(user.get().getId());
             model.addAttribute("order", myOrders);
             return "myOrder";
-
         }else {
             return "redirect:/shop";
         }
-
     }
 }
