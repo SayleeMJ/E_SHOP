@@ -4459,3 +4459,6 @@ select cartitem0_.id as id1_0_, cartitem0_.product_id as product_4_0_, cartitem0
 2022-02-15 00:31:20 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM TABLE[*] USER_ROLE WHERE USER_ID = 33"; expected "identifier"; SQL statement:
 DELETE FROM TABLE USER_ROLE WHERE USER_ID = 33 [42001-200]
+2022-02-15 12:54:07 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CART_ITEM" not found; SQL statement:
+alter table cart_item drop total_price [42102-200]
